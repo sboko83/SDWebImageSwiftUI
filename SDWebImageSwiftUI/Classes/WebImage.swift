@@ -7,6 +7,7 @@
  */
 
 import SwiftUI
+import Combine
 import SDWebImage
 
 public enum WebImagePhase {
@@ -67,6 +68,9 @@ final class WebImageHandler: ObservableObject {
 /// Configuration Binding Object, supports dynamic @State changes
 @available(iOS 14.0, macOS 11.0, tvOS 14.0, watchOS 7.0, *)
 final class WebImageConfiguration: ObservableObject {
+    /// Explicit publisher: the synthesized one looks itself up in a global table on every access
+    let objectWillChange = ObservableObjectPublisher()
+
     var retryOnAppear: Bool = true
     var cancelOnDisappear: Bool = true
     var maxBufferSize: UInt?
